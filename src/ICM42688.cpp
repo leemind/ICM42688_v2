@@ -20,7 +20,7 @@ ICM42688::ICM42688(SPIClass &bus, uint8_t csPin, uint32_t SPI_HS_CLK) {
 }
 
 /* starts communication with the ICM42688 */
-int ICM42688::begin() {
+int ICM42688::begin(int sda,int scl) {
   if( _useSPI ) { // using SPI for communication
     // use low speed SPI for register setting
     _useSPIHS = false;
@@ -32,13 +32,13 @@ int ICM42688::begin() {
     _spi->begin();
   } else { // using I2C for communication
     // starting the I2C bus
-    _i2c->begin();
+    _i2c->begin(sda,scl);
     // setting the I2C clock
     _i2c->setClock(I2C_CLK);
   }
 
   // reset the ICM42688
-  reset();
+  // reset(); - Don't do this
 
   // check the WHO AM I byte
   if(whoAmI() != WHO_AM_I) {
