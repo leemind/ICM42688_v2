@@ -66,7 +66,7 @@ class ICM42688
      *
      * @return     ret < 0 if error
      */
-    int begin();
+    int begin(int sda,int sdc);
 
     /**
      * @brief      Sets the full scale range for the accelerometer
